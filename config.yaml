@@ -1,0 +1,5 @@
+package_name: "requests"
+repo_url_or_path: "https://github.com/psf/requests"
+test_mode: false
+output_filename: "dependency_graph.png"
+max_depth: 3
