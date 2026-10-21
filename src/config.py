@@ -11,7 +11,7 @@ class ConfigError(Exception):
 def load_yaml(filepath: str) -> Dict[str, Any]:
     if not os.path.exists(filepath):
         raise ConfigError(f"Файл конфигурации не найден: {filepath}")
-
+    
     try:
         with open(filepath, "r", encoding="utf-8") as file:
             data = yaml.safe_load(file)
@@ -32,20 +32,25 @@ def validate_params(config: Dict[str, Any]) -> None:
         if key not in config:
             raise ConfigError(f"Отсутствует обязательный параметр: {key}")
 
-    if not isinstance(config["package_name"], str) or not config["package_name"]:
+    pkg_name = config["package_name"]
+    if not isinstance(pkg_name, str) or not pkg_name:
         raise ConfigError("Параметр 'package_name' должен быть строкой.")
-
+        
     if not isinstance(config["repo_url_or_path"], str):
         raise ConfigError("Параметр 'repo_url_or_path' должен быть строкой.")
-
+        
     if not isinstance(config["test_mode"], bool):
-        raise ConfigError("Параметр 'test_mode' должен быть boolean (true/false).")
-
+        msg = "Параметр 'test_mode' должен быть boolean (true/false)."
+        raise ConfigError(msg)
+        
     if not isinstance(config["output_filename"], str):
-        raise ConfigError("Параметр 'output_filename' должен быть строкой.")
-
-    if not isinstance(config["max_depth"], int) or config["max_depth"] < 0:
-        raise ConfigError("Параметр 'max_depth' должен быть целым числом >= 0.")
+        msg = "Параметр 'output_filename' должен быть строкой."
+        raise ConfigError(msg)
+        
+    max_depth = config["max_depth"]
+    if not isinstance(max_depth, int) or max_depth < 0:
+        msg = "Параметр 'max_depth' должен быть целым числом >= 0."
+        raise ConfigError(msg)
 
 
 def print_config(config: Dict[str, Any]) -> None:

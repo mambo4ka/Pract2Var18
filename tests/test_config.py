@@ -15,7 +15,7 @@ def test_valid_config():
 
 def test_missing_parameter():
     config = {"package_name": "A"}
-    with pytest.raises(ConfigError, match="Отсутствует обязательный параметр"):
+    with pytest.raises(ConfigError,match="Отсутствует обязательный параметр"):
         validate_params(config)
 
 
