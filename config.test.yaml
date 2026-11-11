@@ -1,0 +1,5 @@
+package_name: "Newtonsoft.Json"
+repo_url_or_path: "test_repository.json"
+test_mode: true
+output_filename: "dependency_graph.png"
+max_depth: 3

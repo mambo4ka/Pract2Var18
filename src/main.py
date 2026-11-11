@@ -2,6 +2,12 @@ import argparse
 import sys
 
 from config import ConfigError, load_yaml, print_config, validate_params
+from nuget import (
+    NuGetError,
+    collect_dependencies,
+    load_test_repository,
+    print_dependencies,
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -24,8 +30,21 @@ def main() -> None:
         config_data = load_yaml(args.config)
         validate_params(config_data)
         print_config(config_data)
-    except ConfigError as err:
-        print(f"Ошибка конфигурации: {err}", file=sys.stderr)
+
+        if config_data["test_mode"]:
+            result = load_test_repository(
+                config_data["repo_url_or_path"],
+                config_data["package_name"],
+            )
+        else:
+            result = collect_dependencies(
+                config_data["package_name"],
+                config_data["repo_url_or_path"],
+            )
+        print_dependencies(result)
+        print("\nСбор данных успешно завершён.")
+    except (ConfigError, NuGetError) as err:
+        print(f"Ошибка: {err}", file=sys.stderr)
         sys.exit(1)
 
 

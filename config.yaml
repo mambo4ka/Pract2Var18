@@ -1,5 +1,5 @@
-package_name: "requests"
-repo_url_or_path: "https://github.com/psf/requests"
+package_name: "Newtonsoft.Json"
+repo_url_or_path: "https://api.nuget.org/v3/index.json"
 test_mode: false
 output_filename: "dependency_graph.png"
 max_depth: 3

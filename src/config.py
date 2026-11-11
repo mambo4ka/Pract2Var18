@@ -40,11 +40,12 @@ def validate_params(config: Dict[str, Any]) -> None:
             raise ConfigError(msg)
 
     package_name = config["package_name"]
-    if not isinstance(package_name, str) or not package_name:
+    if not isinstance(package_name, str) or not package_name.strip():
         msg = "Параметр 'package_name' должен быть строкой."
         raise ConfigError(msg)
 
-    if not isinstance(config["repo_url_or_path"], str):
+    if (not isinstance(config["repo_url_or_path"], str)
+            or not config["repo_url_or_path"].strip()):
         msg = "Параметр 'repo_url_or_path' должен быть строкой."
         raise ConfigError(msg)
 
